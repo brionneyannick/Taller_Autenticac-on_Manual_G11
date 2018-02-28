@@ -14,6 +14,13 @@
       <ul class="nav navbar-nav">
         <li><a href="#">Link1</a></li>
         <li><a href="#">Link2</a></li>
+        <% if logged? %>
+          <li><a href="#"><%= current_user.name %></a></li>
+          <li><%= link_to 'Salir', session_path(current_user.id), method: :delete %></li>
+        <% else %>
+          <li><%= link_to 'Iniciar sesión', new_session_path %></li>
+          <li><%= link_to 'Registrarse', users_sign_up_path %></li>
+        <% end %>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
@@ -32,4 +39,3 @@
     </div>
   </div>
 </nav>
-

@@ -7,23 +7,39 @@
   </div>
 </div>
 
-<div class="row">
-  <% @histories.reverse.each do |history| %>
-    <div class="col-sm-6 col-md-4">
-      <div class="thumbnail">
-        <%= link_to(image_tag(history.picture.thumb), history) if history.picture? %>
-        <div class="caption">
-          <h3><%= history.title %></h3>
-          <small><%= time_ago_in_words(history.created_at) %> ago</small>
-          <p><%= history.content.truncate(150)  %></p>
-          <p><%= link_to 'Show', history, class: "btn btn-primary" %> <%= link_to 'Edit', edit_history_path(history), class: "btn btn-warning" %> <%= link_to 'Destroy', history, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></p>
+<% if logged? %>
+  <div class="row">
+    <% current_user.histories.reverse.each do |history| %>
+      <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+          <%= link_to(image_tag(history.picture.thumb), history) if history.picture? %>
+          <div class="caption">
+            <h3><%= history.title %></h3>
+            <small><%= time_ago_in_words(history.created_at) %> ago</small>
+            <p><%= history.content.truncate(150) %></p>
+            <p><%= link_to 'Show', history, class: "btn btn-primary" %> <%= link_to 'Edit', edit_history_path(history), class: "btn btn-warning" %> <%= link_to 'Destroy', history, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></p>
+          </div>
         </div>
       </div>
-    </div>
-  <% end %>
-</div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="row">
+    <% @histories.reverse.each do |history| %>
+      <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+          <%= link_to(image_tag(history.picture.thumb), history) if history.picture? %>
+          <div class="caption">
+            <h3><%= history.title %></h3>
+            <small><%= time_ago_in_words(history.created_at) %> ago</small>
+            <p><%= history.content.truncate(150) %></p>
+            <p><%= link_to 'Show', history, class: "btn btn-primary" %> <%= link_to 'Edit', edit_history_path(history), class: "btn btn-warning" %> <%= link_to 'Destroy', history, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
 
 
 <br>
-
-
